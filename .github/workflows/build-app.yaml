@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build and Sign APKs
+    name: Build APKs
     runs-on: ubuntu-latest
 
     steps:
@@ -42,17 +42,8 @@ jobs:
           echo "keyAlias=androiddebugkey" >> keystore.properties
           echo "keyPassword=android" >> keystore.properties
 
-      - name: Build Signed Release APK
-        run: ./gradlew assembleRelease --stacktrace
-
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
           path: app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Upload Signed Release APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release.apk
-          path: app/build/outputs/apk/release/app-release.apk
